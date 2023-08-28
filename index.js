@@ -6,7 +6,7 @@ dotenv.config();
 
 //import the users route
 import { router as userRouter } from './routes/users.js';
-
+import { router as noteRoute} from './routes/notes.js'
 
 const app = express();
 app.use(express.json())
@@ -26,3 +26,6 @@ app.listen(3001, ()=> {
 
 //navigate user route
 app.use('/',userRouter);
+
+//navigate note route
+app.use('/',noteRoute)
