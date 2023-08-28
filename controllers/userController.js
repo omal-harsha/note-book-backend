@@ -51,4 +51,4 @@ export const register = async (req,res) => {
     res.json({message: "User Registred Successfully"});
 }
 
-export default login;
+export default {login,register};
