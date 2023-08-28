@@ -1,5 +1,8 @@
+import { json } from "express";
 import { NoteModel } from "../models/Notes.js";
 
+
+//create note
 export const createNote = async (req,res) => {
 
     const note = new NoteModel(req.body);
@@ -13,6 +16,7 @@ export const createNote = async (req,res) => {
 
 }
 
+//get all notes for a specific user
 export const getNote =  async (req,res) => {
     try {
         const {user} = req.body
@@ -26,4 +30,27 @@ export const getNote =  async (req,res) => {
     }
 }
 
-export default {createNote,getNote};
+//delete the note
+export const deleteNote = async (req,res) => {
+    try {
+        const {noteID} = req.body
+        const result = await NoteModel.findByIdAndDelete(noteID)
+        res.status(200).json({message: "deleted success"})
+    } catch (error) {
+        res.status(500).json({ error: "An error occurred" });
+    }
+    
+}
+
+//update the note
+export const updateNote = async (req,res) => {
+    const {noteID} = req.body
+     const note = req.body
+    const option = {new: true}
+    const updatedNote = await NoteModel.findByIdAndUpdate(noteID,note,option)
+
+    res.json(updatedNote)
+    //res.json({note, noteID})
+}
+
+export default {createNote,getNote,deleteNote,updateNote};
