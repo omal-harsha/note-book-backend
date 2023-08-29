@@ -1,6 +1,4 @@
-import { json } from "express";
 import { NoteModel } from "../models/Notes.js";
-
 
 //create note
 export const createNote = async (req,res) => {
