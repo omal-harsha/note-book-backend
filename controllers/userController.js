@@ -25,13 +25,14 @@ export const login = async (req,res) => {
         const token = jwt.sign({id: user._id}, "secret")
 
         //token store to the cookies
-        res.cookie('jwt', token, {
+        res.cookie('jwt', token, 
+        {
             httpOnly: true, 
-            secure: true,   
+            secure: false,   
             sameSite: 'none',
             maxAge: 30 * 60 * 1000
           });
-        res.json({token, userID: user._id, username: user.username})
+        res.json({token, userID: user._id, username: user.username, success: true})
 }
 
 // user register function
@@ -49,7 +50,7 @@ export const register = async (req,res) => {
 
     const newUser = new UserModel({username, password: hashedPassword})
     await newUser.save();
-    res.json({message: "User Registred Successfully"});
+    res.json({message: "User Registred Successfully", success: true});
 }
 
 export default {login,register};

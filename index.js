@@ -2,6 +2,7 @@ import express from "express";
 import mongoose from "mongoose";
 import cors from "cors";
 import dotenv from 'dotenv';
+import session from "express-session";
 dotenv.config();
 import cookieParser from "cookie-parser";
 
@@ -12,7 +13,12 @@ import { router as noteRoute} from './routes/notes.js'
 
 const app = express();
 app.use(express.json())
-app.use(cors())
+app.use(cors({
+    origin: 'http://localhost:3000',
+    credentials: true
+}));
+
+
 app.use(cookieParser());
 
 //load the db uri from envirement variable
@@ -23,7 +29,7 @@ mongoose.connect(dbUri)
 
 
 
-app.listen(3001, ()=> {
+app.listen(process.env.PORT || 3001, ()=> {
     console.log("port 3001 connected")
 })
 
@@ -32,4 +38,5 @@ app.use('/',userRouter);
 
 //navigate note route
 app.use('/',noteRoute)
+
 
