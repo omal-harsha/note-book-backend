@@ -1,12 +1,14 @@
 import express from "express";
 const router = express.Router()
 import jwt  from 'jsonwebtoken';
-import {createNote,getNote,deleteNote,updateNote} from '../controllers/noteController.js'
+import {createNote,getNote,deleteNote,updateNote,getSingleNote} from '../controllers/noteController.js'
 
 
 //middleware to verify the token in cookies
 const verifyJWT = (req,res,next) => {
-    const token = req.cookies.jwt;
+    const token = req.headers['token']
+    console.log("this token " + token)
+    console.log(token)
     if(!token){
         res.json({message : "Unauthorised"})
     }else{
@@ -23,8 +25,9 @@ const verifyJWT = (req,res,next) => {
 
 //load the note controller
 router.post('/createnote',verifyJWT, createNote)
-router.get('/getnotes',verifyJWT, getNote)
-router.delete('/deletenote',verifyJWT, deleteNote)
-router.patch('/updatenote',verifyJWT, updateNote)
+router.post('/getnotes',verifyJWT, getNote)
+router.delete('/deletenote/:id',verifyJWT, deleteNote)
+router.patch('/updatenote', updateNote)
+router.post('/singlenote', getSingleNote)
 
 export {router};
