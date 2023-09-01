@@ -30,4 +30,11 @@ router.delete('/deletenote/:id',verifyJWT, deleteNote)
 router.patch('/updatenote', updateNote)
 router.post('/singlenote', getSingleNote)
 
+router.get("/test", async (req,res) =>{
+    return res.status(200).json({
+        title: "express testing",
+        message : "The app is working properly!"
+    })
+})
+
 export {router};
