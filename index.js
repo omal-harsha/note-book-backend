@@ -15,7 +15,7 @@ const app = express();
 app.use(express.json())
 
 const corsOptions = {
-    origin: 'https://note-book-backend-umber.vercel.app',
+    origin: 'http://localhost:3000',
     credentials: true, 
   };
 
