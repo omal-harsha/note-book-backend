@@ -13,7 +13,13 @@ import { router as noteRoute} from './routes/notes.js'
 
 const app = express();
 app.use(express.json())
-app.use(cors());
+
+const corsOptions = {
+    origin: 'https://note-book-backend-umber.vercel.app',
+    credentials: true, 
+  };
+
+app.use(cors(corsOptions));
 
 
 app.use(cookieParser());

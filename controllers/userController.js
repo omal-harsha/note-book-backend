@@ -25,10 +25,10 @@ export const login = async (req,res) => {
         const token = jwt.sign({id: user._id}, "secret")
 
         //token store to the cookies
-        res.cookie('jwt', token, 
+        res.cookie('access_token', token, 
         {
             httpOnly: true, 
-            secure: false,   
+            secure: true,   
             sameSite: 'none',
             maxAge: 30 * 60 * 1000
           });
