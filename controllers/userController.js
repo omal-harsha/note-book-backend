@@ -53,4 +53,21 @@ export const register = async (req,res) => {
     res.json({message: "User Registred Successfully", success: true});
 }
 
-export default {login,register};
+//user availability check
+export const userCheck = async (req,res) => {
+    const {userID} =  req.body
+    
+    try {
+        const user = await UserModel.findOne({ _id: userID });
+    
+        if (user) {
+          res.json({ exists: true });
+        } else {
+          res.json({ exists: false });
+        }
+      } catch (error) {
+        res.status(500).json({ error: 'Internal server error' });
+      }
+}
+
+export default {login,register,userCheck};
